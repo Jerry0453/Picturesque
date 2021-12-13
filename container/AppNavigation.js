@@ -3,7 +3,7 @@ import { View, Button, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import Login from './auth/Login';
 function WellcomeScreen({ navigation }) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -11,18 +11,6 @@ function WellcomeScreen({ navigation }) {
         <Button
           title="Go to login"
           onPress={() => navigation.navigate('Login')}
-        />
-      </View>
-    );
-}
-
-function Login({ navigation }) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Login to your account</Text>
-        <Button
-          title="Login"
-          onPress={() => navigation.navigate('Home')}
         />
       </View>
     );
@@ -69,7 +57,7 @@ const Stack = createNativeStackNavigator();
 export default function AppNavigation() {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName='Login'>
                 <Stack.Screen name="Wellcome" component={WellcomeScreen} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Home" component={HomeTabs} />
