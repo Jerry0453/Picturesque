@@ -7,6 +7,7 @@ import Login from './auth/Login';
 import Signup from './auth/Signup';
 import WelcomeScreen from './welcome/WelcomeScreen';
 import NewsFeed from './newsfeed/NewsFeed';
+import ResetPassword from './auth/ResetPassword';
 
 
 function ProfileScreen() {
@@ -51,6 +52,7 @@ export default function AppNavigation() {
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="Home" component={HomeTabs} />
+                <Stack.Screen name="ResetPassword" component={ResetPassword} />
             </Stack.Navigator>
         </NavigationContainer>
     );
