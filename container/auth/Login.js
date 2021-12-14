@@ -55,7 +55,7 @@ const Login = ({navigation}) => {
       <View style={styles.container}>
           <StatusBar backgroundColor='#009387' barStyle="light-content"/>
         <View style={styles.header}>
-            <Text style={styles.text_header}>Welcome!</Text>
+            <Text style={styles.text_header}>Log in</Text>
         </View>
         <Animatable.View 
             animation="fadeInUpBig"
@@ -152,7 +152,7 @@ const Login = ({navigation}) => {
             <View style={styles.button}>
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={() => {loginHandle( data.username, data.password )}}
+                    onPress={() => navigation.navigate("Home")}
                 >
                 <LinearGradient
                     colors={['#08d4c4', '#01ab9d']}
@@ -165,7 +165,7 @@ const Login = ({navigation}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUpScreen')}
+                    onPress={() => navigation.navigate('Signup')}
                     style={[styles.signIn, {
                         borderColor: '#009387',
                         borderWidth: 1,
