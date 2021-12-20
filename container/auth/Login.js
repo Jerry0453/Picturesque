@@ -53,7 +53,7 @@ const Styles = StyleSheet.create({
         marginTop: normalize(30),
         borderRadius: 15,
         paddingHorizontal: 10,
-        
+     
     },
     logindesign:{
         alignSelf:'flex-start',

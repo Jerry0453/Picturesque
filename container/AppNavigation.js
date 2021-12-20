@@ -8,23 +8,12 @@ import Signup from './auth/Signup';
 import WelcomeScreen from './welcome/WelcomeScreen';
 import NewsFeed from './newsfeed/NewsFeed';
 import ResetPassword from './auth/ResetPassword';
+import Profile from './Profile/Profile';
+import Category from './category/Category';
+import ProfileList from './category/ProfileList';
 
 
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Profile</Text>
-    </View>
-  );
-}
 
-function CategoryScreen() {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Category</Text>
-        </View>
-      );
-}
 
 const Tab = createBottomTabNavigator();
 
@@ -32,8 +21,8 @@ function HomeTabs() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="NewsFeed" component={NewsFeed} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Category" component={CategoryScreen} />
+        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Category" component={Category} />
     </Tab.Navigator>
   );
 }
@@ -53,6 +42,9 @@ export default function AppNavigation() {
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="Home" component={HomeTabs} />
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />
+                <Stack.Screen name="ProfileList" component={ProfileList} />
+                <Stack.Screen name="Profile" component={Profile} />
+                
             </Stack.Navigator>
         </NavigationContainer>
     );
