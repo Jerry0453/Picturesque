@@ -7,15 +7,9 @@ export default function ProfileButtons({role}) {
     if(role==="Photographer"){
         return(
             <View style={{flex:1}}>
-
-            <TouchableOpacity>
-                <AntDesign color="black" name="down" size={20} />
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-            <Text style={{color: 'black'}}>Settings</Text>
-            </TouchableOpacity>
-            
+                <TouchableOpacity>
+                    
+                </TouchableOpacity>
             </View>
         )
     }
