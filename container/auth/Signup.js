@@ -1,52 +1,55 @@
 import React from 'react'
-import {View, Text, ImageBackground, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
+import {View, Text, Image, ImageBackground, StyleSheet, Dimensions, TouchableOpacity, ScrollView} from 'react-native'
 import { TextInput } from 'react-native'
-import normalize from '../normalize'
 import SelectDropdown from 'react-native-select-dropdown'
+import normalize from '../../constants/normalize'
 
 
 export default function Login({navigation}) {
     const roles = ["Guest", "Photographer"];
     return (
-        <View>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
             <ImageBackground 
                 source={require('../Images/cropedbg2.jpg')}
-                style={Styles.imagebg}></ImageBackground>
+                style={Styles.imagebg}>
+            </ImageBackground>
+            <View style={Styles.whiteBack}/>
 
-            <View style={{height:'100%', width:'100%', backgroundColor: 'rgba(0,0,0,0.3)', padding: normalize(25), justifyContent:'center'}}>
-                <View style={{backgroundColor:'white', padding:normalize(20), marginTop: normalize(30)}}>
+            <View style={{height:'100%', width:'100%',  paddingHorizontal: normalize(25), justifyContent: 'flex-end'}}>
+                <View style={Styles.loginContainer}>
                     
-                <Text style={Styles.logindesign}>Sign Up</Text>
-                    <SelectDropdown
-                        data={roles}
-                        onSelect={(selectedItem, index) => {
-                        console.log(selectedItem, index)
-                        }}
-                        buttonStyle={Styles.inputdesign}
-                            buttonTextStyle={{color: 'white', fontSize: 15, marginLeft: 5}}
-                    />
-               
-                    <View style={Styles.inputdesign}>
-                        <TextInput>Enter your FullName</TextInput>
-                     </View>
-                     <View style={Styles.inputdesign}>
-                        <TextInput>Enter your Username</TextInput>
-                    </View>
-                    <View style={Styles.inputdesign}>
-                        <TextInput>Enter your mail</TextInput>
-                     </View>
-                     <View style={Styles.inputdesign}>
-                        <TextInput>Enter your Password</TextInput>
-                     </View>
+                    <Text style={Styles.logindesign}>Sign Up</Text>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <SelectDropdown
+                            data={roles}
+                            onSelect={(selectedItem, index) => {
+                            console.log(selectedItem, index)
+                            }}
+                            buttonStyle={Styles.inputdesign}
+                                buttonTextStyle={{color: 'white', fontSize: 13, marginLeft: 5,}}
+                        />
+                        <View style={Styles.inputdesign}>
+                            <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your FullName'/>
+                        </View>
+                        <View style={Styles.inputdesign}>
+                            <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Username'/>
+                        </View>
+                        <View style={Styles.inputdesign}>
+                            <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your email'/>
+                        </View>
+                        <View style={Styles.inputdesign}>
+                            <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Password'/>
+                        </View>
+                     </ScrollView>
                     <View>
                         <TouchableOpacity style={Styles.buttondesign}>
-                            <Text>Sign Up</Text>
+                            <Text style={{color: 'white', fontSize: normalize(15)}}>Sign Up</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={Styles.newaccount}>
-                        <Text style={Styles.signupdesign}>Already have an account?</Text>
+                        <Text style={Styles.textStyle}>Already have an account?</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={Styles.signupdesign}>Log In</Text>
+                            <Text style={Styles.signupdesign}>Log In</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -58,24 +61,50 @@ export default function Login({navigation}) {
 const Styles = StyleSheet.create({
     imagebg:{
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height*0.35,
+        height: Dimensions.get('window').height*0.6,
         position: 'absolute',
-        //top: -Dimensions.get('window').height*0.45,
+        top: 0,
+    },
+    whiteBack: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height*0.6,
+        backgroundColor: 'white',
+        position: 'absolute',
+        bottom: 0,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+    loginContainer: {
+        height: '70%',
+        borderTopLeftRadius: 10, 
+        borderTopRightRadius: 10,
+        backgroundColor:'white', 
+        paddingHorizontal:normalize(20), 
+        marginTop: normalize(30),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     inputdesign:{
         backgroundColor: '#8891a8',
         width: '100%',
-        marginTop: normalize(30),
+        marginBottom: normalize(20),
         borderRadius: 15,
         paddingHorizontal: 10,
-        overflow: 'hidden',
-        
     },
     logindesign:{
         alignSelf:'flex-start',
         color:'#38486e',
         fontSize: normalize(28),
         fontWeight: 'bold',
+        marginBottom: normalize(30),
     },
     buttondesign:{
         width: '100%',
@@ -83,17 +112,23 @@ const Styles = StyleSheet.create({
         backgroundColor: '#38486e',
         padding: normalize(10),
         borderRadius: 10,
-        marginTop: normalize(20),  
     },
     newaccount:{
         flexDirection: 'row',
         justifyContent: 'center',
     },
-    signupdesign:{
-        color:'black',
+    textStyle: {
+        color: 'black',
         marginTop: normalize(14),
         fontSize: normalize(13),
         textAlign: 'center',
-        marginRight: normalize(10),
+    },
+    signupdesign:{
+        color: '#38486E',
+        marginTop: normalize(14),
+        fontWeight: 'bold',
+        fontSize: normalize(13),
+        textAlign: 'center',
+        marginLeft: normalize(10),
     }
 })

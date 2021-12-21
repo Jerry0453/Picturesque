@@ -1,19 +1,20 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 import {View, Text, ImageBackground, StyleSheet, Dimensions, TouchableOpacity, Image} from 'react-native'
-import normalize from '../normalize'
+import normalize from '../../constants/normalize'
+
 export default function WelcomeScreen({navigation}) {
     return (
         <ImageBackground 
             source={require('../Images/logo.jpg')}
             style={Styles.imagebg}>
-            <View>
-            <TouchableOpacity style={Styles.buttondesign} onPress={() => navigation.navigate('Home')}>
-            <Text style={{color:'#fff'}}>Guest</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={Styles.button2design} onPress={() => navigation.navigate('Login')}>
-            <Text style={{color:'#fff'}}>Photographer</Text>
-            </TouchableOpacity>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', marginBottom: normalize(70)}}>
+                <TouchableOpacity style={Styles.buttondesign} onPress={() => navigation.navigate('Home')}>
+                    <Text style={{color:'#fff', fontSize: normalize(15)}}>Guest</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={Styles.buttondesign} onPress={() => navigation.navigate('Login')}>
+                    <Text style={{color:'#fff', fontSize: normalize(15)}}>Photographer</Text>
+                </TouchableOpacity>
             </View>
         
         </ImageBackground>
@@ -26,21 +27,18 @@ const Styles = StyleSheet.create({
     },
     buttondesign:{
         width: '70%',
-        alignSelf:'center',
         alignItems:'center',
-        backgroundColor: "#4c5a7d",
+        backgroundColor: "#38486E",
         padding: normalize(10),
         borderRadius: 10,
-        marginTop: normalize(190),
+        marginBottom: normalize(15)
     },
     button2design:{
         width: '70%',
-        alignSelf:'center',
         alignItems:'center',
-        backgroundColor: "#4c5a7d",
+        backgroundColor: "#38486E",
         borderRadius: 10,
         padding: normalize(10),
-        marginTop: normalize(10),
     },
     
 })

@@ -1,6 +1,6 @@
 import React from "react";
 import { View,Text, StyleSheet, ImageBackground, Dimensions, TextInput,TouchableOpacity, Alert } from "react-native";
-import normalize from '../normalize'
+import normalize from '../../constants/normalize'
 
 function ResetPassword(){
     return(

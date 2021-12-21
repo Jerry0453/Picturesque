@@ -1,7 +1,9 @@
 import React from 'react';
 import {  FlatList,  View, Text, ImageBackground, StyleSheet, Dimensions,  ScrollView, Image,} from 'react-native'
-import normalize from '../normalize';
+import normalize from '../../constants/normalize';
 import ProfileButtons from './ProfileButtons';
+import GuestProfile from './GuestProfile';
+
 
 const images = [
     {id : 1, img:require('../Images/bg1.jpg')},
@@ -19,11 +21,11 @@ const images = [
   
 
 export default function Profile({navigation}) {
-    const role = "Photographer";
+    const role = "Guest";
     const renderItem = ({ item }) => {
        return(  <View style={Styles.imgview}><Image source={item.img} style={Styles.galleryimg}/></View>
     )};
-
+    if(role==="Photographer"){
     return (
        <ScrollView>
         <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -52,13 +54,14 @@ export default function Profile({navigation}) {
                             <Text style={{color: 'black', alignSelf: 'center',fontSize: 13}}> Contact : 01794734875</Text>
                         
                             </View>
-                            <ProfileButtons role={role}/>
-                            <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
+                            
+                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', marginTop: 10}}>
     
-                                    <Text style={{fontWeight: "bold", fontSize: 18, textAlign: 'center', color: 'black'}}>4.5{"\n"}Rating</Text>
-                                    <Text style={{fontWeight: "bold", fontSize: 18, textAlign: 'center', color: 'black'}}>10{"\n"}Total Photos</Text>
+                                    <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>4.5{"\n"}Rating</Text>
+                                    <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>10{"\n"}Total Photos</Text>
                          
                             </View>   
+                            <ProfileButtons role={role}/>
                     </View>
                     <FlatList style={{marginHorizontal: '2%'}}
                     data={images}
@@ -71,8 +74,13 @@ export default function Profile({navigation}) {
                     
         </View>
        </ScrollView>
-   
+            
     )
+            }
+            else {
+                return(
+                    <GuestProfile role={role}/>
+                )}
 }
 const Styles = StyleSheet.create({
   
