@@ -1,12 +1,60 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {View, Text, Image, ImageBackground, StyleSheet, Dimensions, TouchableOpacity, ScrollView} from 'react-native'
 import { TextInput } from 'react-native'
 import SelectDropdown from 'react-native-select-dropdown'
 import normalize from '../../constants/normalize'
-
+import auth from '@react-native-firebase/auth'
+import { userAuthFunctions } from '../../customFunctions/userAuth/userAuthFunctions'
 
 export default function Login({navigation}) {
     const roles = ["Guest", "Photographer"];
+    const [newUser, setNewUser] = useState({
+        fullName: '',
+        userName: '',
+        email: '',
+        password: '',
+        role: '',
+    });
+
+    const [user, setUser] = useState();
+
+    const onAuthStateChanged = (user) => {
+        setUser(user);
+        if(user) {
+            navigation.navigate('Home');
+        }
+    }
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber; 
+      }, []);
+
+    const onSignUp = () => {
+        if(!newUser.role) {
+            return console.log('Select Role');
+        }
+        if(!newUser.fullName) {
+            return console.log('Select fullname');
+        }
+        if(!newUser.userName) {
+            return console.log('Select username');
+        }
+        if(!newUser.email) {
+            return console.log('Select email');
+        }
+        if(!newUser.password) {
+            return console.log('Select pass');
+        }
+        try {
+            userAuthFunctions.signUpWithEmail(newUser.email, newUser.password);
+            userAuthFunctions.storeUserInfo(newUser, user.uid);
+            userAuthFunctions.logInWithEmail(newUser.email, newUser.password);
+        } catch(error) {
+            console.log(error);
+        }
+    } 
+
     return (
         <View style={{flex: 1, backgroundColor: 'white'}}>
             <ImageBackground 
@@ -23,26 +71,26 @@ export default function Login({navigation}) {
                         <SelectDropdown
                             data={roles}
                             onSelect={(selectedItem, index) => {
-                            console.log(selectedItem, index)
+                                setNewUser({...newUser, role: selectedItem})
                             }}
                             buttonStyle={Styles.inputdesign}
                                 buttonTextStyle={{color: 'white', fontSize: 13, marginLeft: 5,}}
                         />
                         <View style={Styles.inputdesign}>
-                            <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your FullName'/>
+                            <TextInput onChangeText={(value) => setNewUser({...newUser, fullName: value})} style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your FullName'/>
                         </View>
                         <View style={Styles.inputdesign}>
-                            <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Username'/>
+                            <TextInput onChangeText={(value) => setNewUser({...newUser, userName: value})} style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Username'/>
                         </View>
                         <View style={Styles.inputdesign}>
-                            <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your email'/>
+                            <TextInput onChangeText={(value) => setNewUser({...newUser, email: value})} style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your email'/>
                         </View>
                         <View style={Styles.inputdesign}>
-                            <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Password'/>
+                            <TextInput onChangeText={(value) => setNewUser({...newUser, password: value})} style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Password'/>
                         </View>
                      </ScrollView>
                     <View>
-                        <TouchableOpacity style={Styles.buttondesign}>
+                        <TouchableOpacity style={Styles.buttondesign} onPress={onSignUp}>
                             <Text style={{color: 'white', fontSize: normalize(15)}}>Sign Up</Text>
                         </TouchableOpacity>
                     </View>
