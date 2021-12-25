@@ -2,7 +2,7 @@ import React from 'react'
 import {View, Text, ImageBackground, Image, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
 import { TextInput } from 'react-native'
 import normalize from '../../constants/normalize'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+
 const ratio = Dimensions.get('window');
 
 export default function Login({navigation}) {

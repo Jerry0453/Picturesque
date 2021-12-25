@@ -14,6 +14,11 @@ import Profile from './Profile/Profile';
 import Category from './category/Category';
 import ProfileList from './category/ProfileList';
 import normalize from '../constants/normalize';
+import Settings from './Settings/Settings';
+import About from './Settings/About';
+import PrivacyPolicy from './Settings/PrivacyPolicy';
+import UpdateProfile from './Settings/UpdateProfile';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -135,6 +140,13 @@ export default function AppNavigation() {
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />
                 <Stack.Screen name="ProfileList" component={ProfileList} />
                 <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name="Settings" component={Settings} />
+                <Stack.Screen name="About" component={About} />
+                <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+                <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
+               
+
+
                 
             </Stack.Navigator>
         </NavigationContainer>

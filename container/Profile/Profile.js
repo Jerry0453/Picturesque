@@ -21,7 +21,7 @@ const images = [
   
 
 export default function Profile({navigation}) {
-    const role = "Guest";
+    const role = "Photographer";
     const renderItem = ({ item }) => {
        return(  <View style={Styles.imgview}><Image source={item.img} style={Styles.galleryimg}/></View>
     )};
@@ -61,7 +61,7 @@ export default function Profile({navigation}) {
                                     <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>10{"\n"}Total Photos</Text>
                          
                             </View>   
-                            <ProfileButtons role={role}/>
+                            <ProfileButtons role={role} navigation= {navigation}/>
                     </View>
                     <FlatList style={{marginHorizontal: '2%'}}
                     data={images}
