@@ -20,6 +20,23 @@ const signUpWithEmail = async (email, password) => {
     });  
 };
 
+const logInWithEmail = async (email, password) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {additionalUserInfo, user} =
+        await auth().signInWithEmailAndPassword(email, password);
+      const isNewUser = additionalUserInfo.isNewUser;
+      resolve({isNewUser, user, additionalUserInfo});
+    } catch (err) {
+      const error = {
+        status: authenticationStatus.INVALID_EMAIL_PASSWORD,
+        msg: 'Invalid email or password!',
+      };
+      reject(error);
+    }
+  });
+};
+
 const storeUserInfo = async (newUser, uid) => {
     console.log(newUser)
     console.log(uid);
@@ -31,7 +48,37 @@ const storeUserInfo = async (newUser, uid) => {
       });
 };
 
+const getUserInfo = async (uid) => {
+  return new Promise(async (resolve, reject) => {
+    firestore()
+      .collection('Users')
+      .doc(uid)
+      .get()
+      .then(documentSnapshot => {
+        if (documentSnapshot.exists) {
+          resolve({userData: documentSnapshot.data()});
+        } else {
+          reject({
+            error: {
+              status: authenticationStatus.INVALID_USER,
+              msg: 'Invalid User',
+            },
+          });
+        }
+      })
+      .catch(error => {
+        const err = {
+          status: authenticationStatus.SOMETHING_WENT_WRONG,
+          msg: 'Something went wrong!',
+        };
+        reject(err);
+      });
+  });
+};
+
 export const userAuthFunctions = {
     signUpWithEmail,
     storeUserInfo,
+    logInWithEmail,
+    getUserInfo,
 };

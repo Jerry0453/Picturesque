@@ -1,5 +1,7 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Button, Text, SafeAreaView } from 'react-native';
+import auth from '@react-native-firebase/auth'
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -10,29 +12,18 @@ import Signup from './auth/Signup';
 import WelcomeScreen from './welcome/WelcomeScreen';
 import NewsFeed from './newsfeed/NewsFeed';
 import ResetPassword from './auth/ResetPassword';
+import Profile from './Profile/Profile';
+import Category from './category/Category';
+import VisitingProfile from './category/VisitingProfile';
+import ProfileList from './category/ProfileList';
 import normalize from '../constants/normalize';
 
-
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Profile</Text>
-    </View>
-  );
-}
-
-function CategoryScreen() {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Category</Text>
-        </View>
-      );
-}
 
 const Tab = createBottomTabNavigator();
 
 function HomeTabs() {
   return (
+   
     <Tab.Navigator 
       screenOptions={{ headerShown: false }}
       screenOptions={{
@@ -79,8 +70,8 @@ function HomeTabs() {
           }} 
         />
         <Tab.Screen 
-          name="CategoryScreen" 
-          component={CategoryScreen} 
+          name="Category" 
+          component={Category} 
           options={{
             tabBarIcon: ({focused}) => {
               return (
@@ -103,8 +94,8 @@ function HomeTabs() {
           }} 
         />
         <Tab.Screen 
-          name="ProfileScreen" 
-          component={ProfileScreen} 
+          name="Profile" 
+          component={Profile} 
           options={{
             tabBarIcon: ({focused}) => {
               return (
@@ -133,10 +124,26 @@ function HomeTabs() {
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigation() {
-    return (
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+
+  if (initializing) return null;
+    
+  return (
         <NavigationContainer>
             <Stack.Navigator 
-              initialRouteName='WelcomeScreen' 
+              initialRouteName={user ? "Home" : "WelcomeScreen"}
               screenOptions={{
                   headerShown: false
               }}>
@@ -145,6 +152,9 @@ export default function AppNavigation() {
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="Home" component={HomeTabs} />
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />
+                <Stack.Screen name="ProfileList" component={ProfileList} />
+                <Stack.Screen name="VisitingProfile" component={VisitingProfile} />
+                
             </Stack.Navigator>
         </NavigationContainer>
     );

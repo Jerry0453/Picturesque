@@ -1,12 +1,13 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, Image, ScrollView } from 'react-native'
-import { Searchbar } from 'react-native-paper'
+import { View, Text, StyleSheet, FlatList, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { Button, Searchbar } from 'react-native-paper'
 import normalize from '../../constants/normalize'
 import PhotographerList from './PhotographerList'
 import CategoryList from './CategoryList'
 import RecentUploads from './RecentUploads'
+import auth from '@react-native-firebase/auth'
 
-export default function NewsFeed() {
+export default function NewsFeed({navigation}) {
     const photographerList = [
         { id: 1, name: 'Kaniz Fatima Tonni', img: require('../Images/1.jpg'), location: 'Chittagong' },
         { id: 2, name: 'Maliha Zahan CHowdhury', img: require('../Images/2.jpg'), location: 'CUET' },
@@ -26,19 +27,34 @@ export default function NewsFeed() {
         { id: 7, name: 'LifeStyle', img: 'https://cdn-icons-png.flaticon.com/512/2751/2751585.png' },
     ];
 
+    const onSignOut = () => {
+        try {
+            auth()
+            .signOut()
+            .then(() => console.log('User signed out!'));
+            navigation.navigate('WelcomeScreen');
+        } catch(error) {
+            console.log(error);
+        }
+        
+    }
+
     return (
         <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
             <View style={{flex: 0.1, justifyContent: 'center', marginHorizontal: normalize(20)}}>
                 <Text style={Styles.headerText}>Picturesque</Text>
+                <TouchableOpacity onPress={onSignOut}>
+                    <Text>logout</Text>
+                </TouchableOpacity>
             </View>
             <View style={{flex: 0.9, paddingHorizontal: normalize(20)}}>
                 <Searchbar style={{height: 50, width: '100%'}} placeholder='Search your choices...' />
 
                 {/* Photographer section */}
-                <PhotographerList photographerList={photographerList} />
+                <PhotographerList photographerList={photographerList} navigation={navigation} />
 
                 {/* category section */}
-                <CategoryList  categoryList={categoryList} />
+                <CategoryList  categoryList={categoryList} navigation={navigation} />
 
                 {/* photos section */}
                 <RecentUploads />

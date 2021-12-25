@@ -1,22 +1,23 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
-import normalize from '../../constants/normalize'
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
+import normalize from '../../constants/normalize';
 
-export default function PhotographerList({photographerList}) {
+export default function PhotographerList({photographerList, navigation}) {
 
     const renderItem = ({item}) => {
         return(
-            <View style={Styles.renderItemStyle}>
+            <TouchableOpacity style={Styles.renderItemStyle} onPress={() => navigation.navigate('Profile')}>
                 <Image source={item.img} style={Styles.ImgStyle} />
                 <Text style={Styles.NameStyle}>{item.name}</Text>
                 <Text style={[Styles.NameStyle, {fontSize: normalize(13), fontWeight: '300'}]}>{item.location}</Text>
-            </View>
+            </TouchableOpacity>
         )
     }
 
     return (
         <View>
             <Text style={Styles.topicTextStyle}>Suggested for you</Text>
+          
             <FlatList
                 data={photographerList}
                 renderItem={renderItem}
@@ -24,6 +25,7 @@ export default function PhotographerList({photographerList}) {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
             />
+          
         </View>
     )
 }

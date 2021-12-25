@@ -1,18 +1,18 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 import normalize from '../../constants/normalize'
 
-export default function CategoryList({categoryList}) {
+export default function CategoryList({categoryList, navigation}) {
 
     const renderItem = ({item}) => {
         return(
-            <View style={{width: 80, marginRight: normalize(15)}}>
+            <TouchableOpacity style={{width: 80, marginRight: normalize(15)}} onPress={() => navigation.navigate('Category')}>
                 <View style={Styles.renderItemStyle}>
                     <Image source={{uri: item.img}} style={Styles.ImgStyle} />
                 </View>
                 <Text style={Styles.NameStyle}>{item.name}</Text>
                 <Text style={[Styles.NameStyle, {fontSize: normalize(13), fontWeight: '300'}]}>{item.location}</Text>
-            </View>
+            </TouchableOpacity>
         )
     }
 

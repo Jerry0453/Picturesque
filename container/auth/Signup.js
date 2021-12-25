@@ -9,11 +9,18 @@ import { userAuthFunctions } from '../../customFunctions/userAuth/userAuthFuncti
 export default function Login({navigation}) {
     const roles = ["Guest", "Photographer"];
     const [newUser, setNewUser] = useState({
+        img: 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png',
         fullName: '',
         userName: '',
         email: '',
         password: '',
         role: '',
+        contact: '',
+        location: '',
+        categories: [],
+        rating: 0,
+        sumOfRating: 0,
+        totalRating: 0,
     });
 
     const [user, setUser] = useState();
@@ -21,14 +28,15 @@ export default function Login({navigation}) {
     const onAuthStateChanged = (user) => {
         setUser(user);
         if(user) {
+            userAuthFunctions.storeUserInfo(newUser, user.uid);
             navigation.navigate('Home');
         }
     }
 
-    useEffect(() => {
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-        return subscriber; 
-      }, []);
+    // useEffect(() => {
+    //     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    //     return subscriber; 
+    // }, []);
 
     const onSignUp = () => {
         if(!newUser.role) {
@@ -47,9 +55,8 @@ export default function Login({navigation}) {
             return console.log('Select pass');
         }
         try {
-            userAuthFunctions.signUpWithEmail(newUser.email, newUser.password);
-            userAuthFunctions.storeUserInfo(newUser, user.uid);
-            userAuthFunctions.logInWithEmail(newUser.email, newUser.password);
+            userAuthFunctions.signUpWithEmail(newUser.email, newUser.password); 
+            auth().onAuthStateChanged(onAuthStateChanged);
         } catch(error) {
             console.log(error);
         }

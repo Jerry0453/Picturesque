@@ -1,11 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {View, Text, ImageBackground, Image, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
 import { TextInput } from 'react-native'
 import normalize from '../../constants/normalize'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-const ratio = Dimensions.get('window');
+import auth from '@react-native-firebase/auth'
+import { userAuthFunctions } from '../../customFunctions/userAuth/userAuthFunctions'
 
 export default function Login({navigation}) {
+    const [currentUser, setCurrentUser] = useState({
+        email: '',
+        password: '',
+    });
+
+    const onLogIn = async () => {
+        if(!currentUser.email) {
+            return console.log('Select email');
+        }
+        if(!currentUser.password) {
+            return console.log('Select pass');
+        }
+        try {
+            const user = await userAuthFunctions.logInWithEmail(currentUser.email, currentUser.password);
+            navigation.navigate('Home')
+        } catch(error) {
+            console.log(error);
+        }
+    } 
     
     return (
         <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -21,13 +40,13 @@ export default function Login({navigation}) {
                 <View style={Styles.loginContainer}>
                     <Text style={Styles.logindesign}>Log In</Text>
                     <View style={Styles.inputdesign}>
-                        <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Email'/>
+                        <TextInput onChangeText={(value) => setCurrentUser({...currentUser, email: value})} style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Email'/>
                      </View>
                      <View style={Styles.inputdesign}>
-                        <TextInput style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Password'/>
+                        <TextInput onChangeText={(value) => setCurrentUser({...currentUser, password: value})} style={{color: 'white'}} placeholderTextColor={"white"} placeholder='Enter your Password'/>
                     </View>
                     <View>
-                        <TouchableOpacity style={Styles.buttondesign} onPress={() => navigation.navigate('Home')}>
+                        <TouchableOpacity style={Styles.buttondesign} onPress={onLogIn}>
                             <Text style={{color: 'white', fontSize: normalize(15)}}>Log In</Text>
                         </TouchableOpacity>
                     </View>
@@ -85,7 +104,10 @@ const Styles = StyleSheet.create({
         width: '100%',
         marginBottom: normalize(20),
         borderRadius: 15,
+        paddingHorizontal: 10,
+     
         paddingHorizontal: 10, 
+
     },
     logindesign:{
         alignSelf:'flex-start',
