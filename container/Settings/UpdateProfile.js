@@ -60,7 +60,7 @@ export default function UpdateProfile({navigation}) {
                        </View>
 
                         <TouchableOpacity>
-                        <Text style={Styles.passchange}>Logout</Text>
+                        <Text style={Styles.logoutdesign}>Logout</Text>
                         </TouchableOpacity>
                 </View>
             </View>
@@ -96,7 +96,7 @@ const Styles=StyleSheet.create({
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
     },
-    passchange:{
+    logoutdesign:{
         marginTop: 20,
         color: 'white',
         padding: 10,

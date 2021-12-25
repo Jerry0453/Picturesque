@@ -17,7 +17,7 @@ export default function ProfileButtons({role, navigation }) {
                 <AntDesign name="upload" size={35} color="#38486e" />
                 </TouchableOpacity>
                 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Message')}>
                 <AntDesign name="message1" size={35} color="#38486e" />
                 </TouchableOpacity>
                 
