@@ -22,6 +22,7 @@ import {userProfileFunctions} from '../../customFunctions/userProfile/userProfil
 
   
 
+<<<<<<< HEAD
 export default function Profile({navigation, route}) {
     const role = "Guest";
     const [authorisedUserDetails, setAuthorisedUserDetails] = useState();
@@ -51,6 +52,10 @@ export default function Profile({navigation, route}) {
     }, [])
     
 
+=======
+export default function Profile({navigation}) {
+    const role = "Photographer";
+>>>>>>> a8d435e4a9e4ef6432807bd8a7ad371fb0207983
     const renderItem = ({ item }) => {
        return(  <View style={Styles.imgview}><Image source={{uri: item.img}} style={Styles.galleryimg}/></View>
     )};
@@ -95,6 +100,7 @@ export default function Profile({navigation, route}) {
                                 <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>4.5{"\n"}Rating</Text>
                                 <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>10{"\n"}Total Photos</Text>       
                             </View>   
+<<<<<<< HEAD
                             <ProfileButtons role="Photographer" authorisedUserDetails={authorisedUserDetails} />
                         </View>
                         <FlatList 
@@ -113,6 +119,28 @@ export default function Profile({navigation, route}) {
             <GuestProfile />
         )
     }
+=======
+                            <ProfileButtons role={role} navigation= {navigation}/>
+                    </View>
+                    <FlatList style={{marginHorizontal: '2%'}}
+                    data={images}
+                    numColumns={3}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                    />
+                    </View>
+                    
+                    
+        </View>
+       </ScrollView>
+            
+    )
+            }
+            else {
+                return(
+                    <GuestProfile role={role}/>
+                )}
+>>>>>>> a8d435e4a9e4ef6432807bd8a7ad371fb0207983
 }
 
 const Styles = StyleSheet.create({
