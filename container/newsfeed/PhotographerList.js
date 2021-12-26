@@ -6,9 +6,12 @@ export default function PhotographerList({photographerList, navigation}) {
 
     const renderItem = ({item}) => {
         return(
-            <TouchableOpacity style={Styles.renderItemStyle} onPress={() => navigation.navigate('Profile')}>
-                <Image source={item.img} style={Styles.ImgStyle} />
-                <Text style={Styles.NameStyle}>{item.name}</Text>
+            <TouchableOpacity style={Styles.renderItemStyle} onPress={() => navigation.navigate('VisitingProfile', {
+                profileInfo: item,
+            })}>
+                <Image source={{uri: item.img}} style={Styles.ImgStyle} />
+                <Text style={Styles.NameStyle}>{item.fullName}</Text>
+                <Text style={Styles.NameStyle}>{item.email}</Text>
                 <Text style={[Styles.NameStyle, {fontSize: normalize(13), fontWeight: '300'}]}>{item.location}</Text>
             </TouchableOpacity>
         )

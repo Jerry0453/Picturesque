@@ -48,6 +48,17 @@ const storeUserInfo = async (newUser, uid) => {
       });
 };
 
+const updateUserInfo = async (updatedUserData, uid) => {
+  console.log(updatedUserData)
+  console.log(uid);
+  return await firestore()
+    .collection('Users')
+    .doc(uid)
+    .update({
+      ...updatedUserData,
+    });
+};
+
 const getUserInfo = async (uid) => {
   return new Promise(async (resolve, reject) => {
     firestore()
@@ -79,6 +90,7 @@ const getUserInfo = async (uid) => {
 export const userAuthFunctions = {
     signUpWithEmail,
     storeUserInfo,
+    updateUserInfo,
     logInWithEmail,
     getUserInfo,
 };

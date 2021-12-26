@@ -22,12 +22,11 @@ import {userProfileFunctions} from '../../customFunctions/userProfile/userProfil
 
   
 
-<<<<<<< HEAD
 export default function Profile({navigation, route}) {
     const role = "Guest";
     const [authorisedUserDetails, setAuthorisedUserDetails] = useState();
     const [isVisiting, setIsVisiting] = useState(false);
-    const [images, setImages] = useState();
+    const [images, setImages] = useState([]);
 
     const loadUserInfo = async () => {
         const userId = getUserID();
@@ -50,12 +49,6 @@ export default function Profile({navigation, route}) {
     useEffect(() => {
         loadImages();
     }, [])
-    
-
-=======
-export default function Profile({navigation}) {
-    const role = "Photographer";
->>>>>>> a8d435e4a9e4ef6432807bd8a7ad371fb0207983
     const renderItem = ({ item }) => {
        return(  <View style={Styles.imgview}><Image source={{uri: item.img}} style={Styles.galleryimg}/></View>
     )};
@@ -73,7 +66,7 @@ export default function Profile({navigation}) {
             <View style={{flex: 1, backgroundColor: 'white'}}>
                 <ScrollView>
                     <ImageBackground 
-                        source={require('../Images/upperimage.jpg')}
+                        source={{uri: authorisedUserDetails.coverPic}}
                         style={Styles.imagebg2}
                     ></ImageBackground>
                     <View>
@@ -92,16 +85,15 @@ export default function Profile({navigation}) {
                             <View>
                                 <Text style={{color: 'black', alignSelf: 'center', fontWeight: 'bold', marginTop: 10, fontSize: 17}}>{authorisedUserDetails.fullName}</Text>
                                 <Text style={{color: '#38486e', alignSelf: 'center', fontSize: 13}}>{authorisedUserDetails.email}</Text>
-                                <Text style={{color: 'black', alignSelf: 'center', fontSize: 13}}> Address: Sufia Kamal Hall</Text>
-                                <Text style={{color: 'black', alignSelf: 'center',fontSize: 13}}> Contact : 01794734875</Text>    
+                                <Text style={{color: 'black', alignSelf: 'center', fontSize: 13}}>{authorisedUserDetails.location}</Text>
+                                <Text style={{color: 'black', alignSelf: 'center',fontSize: 13}}>{authorisedUserDetails.contact}</Text>
                             </View>
                                         
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', marginTop: 10}}>
                                 <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>4.5{"\n"}Rating</Text>
-                                <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>10{"\n"}Total Photos</Text>       
+                                <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>{images.length}{"\n"}Total Photos</Text>       
                             </View>   
-<<<<<<< HEAD
-                            <ProfileButtons role="Photographer" authorisedUserDetails={authorisedUserDetails} />
+                            <ProfileButtons role="Photographer" navigation= {navigation} authorisedUserDetails={authorisedUserDetails} />
                         </View>
                         <FlatList 
                             style={{marginHorizontal: '2%'}}
@@ -119,28 +111,6 @@ export default function Profile({navigation}) {
             <GuestProfile />
         )
     }
-=======
-                            <ProfileButtons role={role} navigation= {navigation}/>
-                    </View>
-                    <FlatList style={{marginHorizontal: '2%'}}
-                    data={images}
-                    numColumns={3}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    />
-                    </View>
-                    
-                    
-        </View>
-       </ScrollView>
-            
-    )
-            }
-            else {
-                return(
-                    <GuestProfile role={role}/>
-                )}
->>>>>>> a8d435e4a9e4ef6432807bd8a7ad371fb0207983
 }
 
 const Styles = StyleSheet.create({

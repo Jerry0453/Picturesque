@@ -27,6 +27,31 @@ const getCategories = async () => {
     });
 };
 
+const getCategoriesforOption = async () => {
+  return new Promise(async (resolve, reject) => {
+    firestore()
+      .collection('Category')
+      .get()
+      .then(querySnapshot => {
+          let tempCategory = [];
+          querySnapshot.forEach((doc) => {
+              tempCategory.push({
+                  id: doc.id,
+                  name: doc.data().category_name,
+              });
+          });
+          resolve({Data: tempCategory});
+      })
+      .catch(error => {
+        const err = {
+          status: authenticationStatus.SOMETHING_WENT_WRONG,
+          msg: 'Something went wrong!',
+        };
+        reject(err);
+      });
+  });
+};
+
 const getProfileListByCategory = async (categoryId) => {
     return new Promise(async (resolve, reject) => {
       firestore()
@@ -57,5 +82,6 @@ const getProfileListByCategory = async (categoryId) => {
 
 export const categoryFunctions = {
     getCategories,
+    getCategoriesforOption,
     getProfileListByCategory,
 };

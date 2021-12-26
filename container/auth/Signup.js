@@ -10,6 +10,7 @@ export default function Login({navigation}) {
     const roles = ["Guest", "Photographer"];
     const [newUser, setNewUser] = useState({
         img: 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png',
+        coverPic: 'https://firebasestorage.googleapis.com/v0/b/picturesque-c7f33.appspot.com/o/Images%2F269741416_235891381995569_1051344916841076276_n.jpg?alt=media&token=057418f8-2ecb-4204-bb61-43152897e094',
         fullName: '',
         userName: '',
         email: '',

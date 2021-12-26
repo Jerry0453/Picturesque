@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { View, Button, Text, SafeAreaView } from 'react-native';
-import auth from '@react-native-firebase/auth'
+import auth from '@react-native-firebase/auth';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -158,19 +158,12 @@ export default function AppNavigation() {
                 <Stack.Screen name="Home" component={HomeTabs} />
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />
                 <Stack.Screen name="ProfileList" component={ProfileList} />
-<<<<<<< HEAD
                 <Stack.Screen name="VisitingProfile" component={VisitingProfile} />
-=======
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="About" component={About} />
                 <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
-                <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
-               
-
-
->>>>>>> a8d435e4a9e4ef6432807bd8a7ad371fb0207983
-                
+                <Stack.Screen name="UpdateProfile" component={UpdateProfile} />                
             </Stack.Navigator>
         </NavigationContainer>
     );

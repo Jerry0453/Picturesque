@@ -7,7 +7,7 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import styles from 'react-native-material-dropdown/src/components/dropdown/styles';
 
-export default function ProfileButtons({role, authorisedUserDetails, isRatingVisible, setIsRatingVisible}) {
+export default function ProfileButtons({role, navigation, authorisedUserDetails, isRatingVisible, setIsRatingVisible}) {
     const [img, setImg] = useState(null);
     const [ratingValue, setRatingValue] = useState(0);
 
@@ -47,13 +47,7 @@ export default function ProfileButtons({role, authorisedUserDetails, isRatingVis
         });
     }
 
-<<<<<<< HEAD
     if(role === 'Photographer'){
-=======
-export default function ProfileButtons({role, navigation }) {
-    
-    if(role==="Photographer"){
->>>>>>> a8d435e4a9e4ef6432807bd8a7ad371fb0207983
         return(
             <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 10}}>
                 <TouchableOpacity onPress={chooseFile}>
@@ -64,13 +58,10 @@ export default function ProfileButtons({role, navigation }) {
                 <AntDesign name="message1" size={35} color="#38486e" />
                 </TouchableOpacity> */}
                 
-<<<<<<< HEAD
-                <TouchableOpacity>
-                    <AntDesign name="setting" size={35} color="#38486e" />
-=======
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings', {
+                    authorisedUserDetails: authorisedUserDetails,
+                })}>
                 <AntDesign name="setting" size={35} color="#38486e" />
->>>>>>> a8d435e4a9e4ef6432807bd8a7ad371fb0207983
                 </TouchableOpacity>
             </View>
         )
@@ -81,15 +72,10 @@ export default function ProfileButtons({role, navigation }) {
                     <TouchableOpacity>
                         <AntDesign name="message1" size={35} color="#38486e" />
                     </TouchableOpacity>
-<<<<<<< HEAD
                     <TouchableOpacity onPress={() => setIsRatingVisible(!isRatingVisible)}>
                         <AntDesign name="star" size={35} color="#38486e"/>
-=======
-                    <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-                    <AntDesign name="setting" size={35} color="#38486e"/>
->>>>>>> a8d435e4a9e4ef6432807bd8a7ad371fb0207983
                     </TouchableOpacity>
-                </View>
+                </View>  
             </View>
         )
     } 

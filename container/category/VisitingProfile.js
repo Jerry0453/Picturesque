@@ -6,26 +6,11 @@ import GuestProfile from '../Profile/GuestProfile';
 import { getUserID } from '../../customFunctions/utils';
 import { Rating, RatingProps } from 'react-native-elements';
 
-import {userProfileFunctions} from '../../customFunctions/userProfile/userProfileFunctions';
-
-const images = [
-    {id : 1, img:require('../Images/bg1.jpg')},
-    {id : 2, img:require('../Images/bg2.jpg')},
-    {id : 3, img:require('../Images/bg3.jpg')},
-    {id : 4, img:require('../Images/bg1.jpg')},
-    {id : 5, img:require('../Images/bg1.jpg')},
-    {id : 6, img:require('../Images/bg1.jpg')},
-    {id : 7, img:require('../Images/bg2.jpg')},
-    {id : 8, img:require('../Images/bg3.jpg')},
-    {id : 9, img:require('../Images/bg1.jpg')},
-    {id : 10, img:require('../Images/bg1.jpg')}
-  ];
-
-  
+import {userProfileFunctions} from '../../customFunctions/userProfile/userProfileFunctions';  
 
 export default function VisitingProfile({navigation, route}) {
     const { profileInfo } = route.params;
-    const [images, setImages] = useState();
+    const [images, setImages] = useState([]);
     const [isRatingVisible, setIsRatingVisible] = useState(false);
 
     const loadImages = async () => {
@@ -48,7 +33,7 @@ export default function VisitingProfile({navigation, route}) {
         <View  style={{flex: 1, backgroundColor: 'white'}}>
             <ScrollView>
                 <ImageBackground 
-                    source={require('../Images/upperimage.jpg')}
+                    source={{uri : profileInfo.coverPic}}
                     style={Styles.imagebg2}
                 ></ImageBackground>
                 <View>
@@ -73,7 +58,7 @@ export default function VisitingProfile({navigation, route}) {
                                         
                         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', marginTop: 10}}>
                             <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>4.5{"\n"}Rating</Text>
-                            <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>10{"\n"}Total Photos</Text>       
+                            <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>{images.length}{"\n"}Total Photos</Text>       
                         </View>   
                         <ProfileButtons role="Guest" isRatingVisible={isRatingVisible} setIsRatingVisible={setIsRatingVisible} />
                     </View>

@@ -3,7 +3,8 @@ import { View, Text, ImageBackground, StyleSheet, Dimensions,  ScrollView, Image
 import normalize from '../../constants/normalize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function Settings({navigation}) {
+export default function Settings({navigation, route}) {
+    const { authorisedUserDetails } = route.params;
     return (
   
         <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -11,7 +12,7 @@ export default function Settings({navigation}) {
                  source={require('../Images/settingupperpic.jpg')}
                  style={Styles.imagebg2}>
                  <Text style={Styles.titledesign}> Settings</Text>
-                 <Text style={Styles.namedesign}> Maliha Zahan Chodhury</Text>
+                 <Text style={Styles.namedesign}>{authorisedUserDetails.fullName}</Text>
              </ImageBackground>
             <View>
                 <View style={{width: '90%',backgroundColor:'white', padding:normalize(20),
@@ -24,11 +25,13 @@ export default function Settings({navigation}) {
                      shadowRadius: 3.84,
                      
                      elevation: 5,}}>
-                         <Image source={require('../Images/Profile.jpg')}
+                         <Image source={{uri: authorisedUserDetails.img}}
                          style={Styles.profileimg}></Image>
 
                       
-                         <TouchableOpacity style={Styles.settingsmenu} onPress={() => navigation.navigate('UpdateProfile')}>
+                         <TouchableOpacity style={Styles.settingsmenu} onPress={() => navigation.navigate('UpdateProfile', {
+                             authorisedUserDetails: authorisedUserDetails,
+                         })}>
                          <Text style={{color:'black', fontSize: 16}}>Update Profile</Text>
                          <AntDesign name="right" size={20} color="#38486e" style={{marginLeft: 165}}/>
                          </TouchableOpacity>

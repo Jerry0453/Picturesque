@@ -2,13 +2,10 @@ import React, {useState} from 'react'
 import {View, Text, ImageBackground, Image, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
 import { TextInput } from 'react-native'
 import normalize from '../../constants/normalize'
-<<<<<<< HEAD
 import auth from '@react-native-firebase/auth'
 import { userAuthFunctions } from '../../customFunctions/userAuth/userAuthFunctions'
-=======
 
 const ratio = Dimensions.get('window');
->>>>>>> a8d435e4a9e4ef6432807bd8a7ad371fb0207983
 
 export default function Login({navigation}) {
     const [currentUser, setCurrentUser] = useState({

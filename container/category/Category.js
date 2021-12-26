@@ -9,7 +9,6 @@ export default function Category({navigation}){
     const loadCategories = async () => {
         const category = await categoryFunctions.getCategories();
         setCategories(category.Data);
-        console.log(categories)
     }
 
     useEffect(() => {

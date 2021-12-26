@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, ImageBackground } from 'react-native'
 import normalize from '../../constants/normalize'
+import {userAuthFunctions} from '../../customFunctions/userAuth/userAuthFunctions';
+import { newsfeedFunctions } from '../../customFunctions/newsfeedFunctions/newsfeedFunctions';
 
 export default function RecentUploads() {
+    const [images, setImages] = useState();
     const recentImages = [
         { id: 1, name: 'Kaniz Fatima Tonni', img: 'https://i.pinimg.com/564x/8e/6c/06/8e6c064f57f94838263d7ba9ad80f353.jpg' },
         { id: 2, name: 'Maliha Zahan CHowdhury', img: 'https://i.pinimg.com/564x/4d/b0/f9/4db0f939a4b6ca9bf9dd43f2ba312e5d.jpg' },
@@ -14,11 +17,21 @@ export default function RecentUploads() {
         { id: 8, name: 'Maliha Zahan CHowdhury', img: 'https://i.pinimg.com/736x/e1/f6/e7/e1f6e7c9aa58e9267b1247f58640c9f5.jpg' },
     ];
 
+    const loadImages = async () => {
+        const userPhotos = await newsfeedFunctions.getRecentUploads();
+        console.log(userPhotos.Data)
+        setImages(userPhotos.Data)
+    }
+
+    useEffect(() => {
+        loadImages();
+    }, [])
+
     const renderItem = ({item}) => {
         return (
             <View style={[Styles.galleryImgStyle, {marginRight: item.id%3 !== 0 ? '2%' : 0,}]}>
                 <ImageBackground source={{uri: item.img}} style={Styles.imgStyle} imageStyle={{borderRadius: 6}} >
-                    <Text style={Styles.NameStyle}>{item.name}</Text>
+                    {/* <Text style={Styles.NameStyle}>{item.name}</Text> */}
                 </ImageBackground>             
             </View>
         )
@@ -28,7 +41,7 @@ export default function RecentUploads() {
         <View>
             <Text style={Styles.topicTextStyle}>Recent Uploads</Text>
             <FlatList
-                data={recentImages}
+                data={images}
                 numColumns={3}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
