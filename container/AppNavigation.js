@@ -21,7 +21,8 @@ import Settings from './Settings/Settings';
 import About from './Settings/About';
 import PrivacyPolicy from './Settings/PrivacyPolicy';
 import UpdateProfile from './Settings/UpdateProfile';
-
+import Message from './Profile/Message';
+import HiringLists from './Profile/HiringLists';
 
 
 const Tab = createBottomTabNavigator();
@@ -163,7 +164,9 @@ export default function AppNavigation() {
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="About" component={About} />
                 <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
-                <Stack.Screen name="UpdateProfile" component={UpdateProfile} />                
+                <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
+                <Stack.Screen name="Message" component={Message} />
+                <Stack.Screen name="HiringLists" component={HiringLists} />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -34,9 +34,7 @@ export default function Login({navigation}) {
                 source={require('../Images/cropedbg2.jpg')}
                 style={Styles.imagebg}>
             </ImageBackground>
-            <View style={Styles.whiteBack}>
-                <Image style={{width: '100%', height: '7%', resizeMode: 'contain', marginBottom: normalize(20)}} source={require('../Images/Web_Photo_Editor.jpg')} />
-            </View>
+            <View style={Styles.whiteBack}/>
 
             <View style={{height:'100%', width:'100%',  padding: normalize(25), justifyContent:'center'}}>
                 <View style={Styles.loginContainer}>

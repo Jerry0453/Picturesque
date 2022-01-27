@@ -31,8 +31,9 @@ export default function RecentUploads() {
         return (
             <View style={[Styles.galleryImgStyle, {marginRight: item.id%3 !== 0 ? '2%' : 0,}]}>
                 <ImageBackground source={{uri: item.img}} style={Styles.imgStyle} imageStyle={{borderRadius: 6}} >
-                    {/* <Text style={Styles.NameStyle}>{item.name}</Text> */}
-                </ImageBackground>             
+                    
+                </ImageBackground>  
+                <Text style={Styles.NameStyle}>{item.name}</Text>
             </View>
         )
     }

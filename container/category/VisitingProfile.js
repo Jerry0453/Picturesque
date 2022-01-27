@@ -60,7 +60,7 @@ export default function VisitingProfile({navigation, route}) {
                             <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>4.5{"\n"}Rating</Text>
                             <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>{images.length}{"\n"}Total Photos</Text>       
                         </View>   
-                        <ProfileButtons role="Guest" isRatingVisible={isRatingVisible} setIsRatingVisible={setIsRatingVisible} />
+                        <ProfileButtons role="Guest" VisitingProfileInfo={profileInfo} navigation={navigation} isRatingVisible={isRatingVisible} setIsRatingVisible={setIsRatingVisible} />
                     </View>
                     <FlatList 
                         style={{marginHorizontal: '2%'}}

@@ -45,6 +45,7 @@ const storeUserInfo = async (newUser, uid) => {
       .doc(uid)
       .set({
         ...newUser,
+        uid: uid,
       });
 };
 

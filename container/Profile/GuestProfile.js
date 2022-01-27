@@ -1,14 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import {   View, Text, ImageBackground, StyleSheet, Dimensions,  ScrollView, Image,} from 'react-native'
+import {   View, Text, ImageBackground, StyleSheet, TouchableOpacity, Dimensions,  ScrollView, Image,} from 'react-native'
 import normalize from '../../constants/normalize';
 import ProfileButtons from './ProfileButtons';
 import { getUserID } from '../../customFunctions/utils';
 import {userAuthFunctions} from '../../customFunctions/userAuth/userAuthFunctions';
+import auth from '@react-native-firebase/auth'
+import { hireFunctions } from '../../customFunctions/hireFunctions/hireFunctions';
 
-export default function GuestProfile(){
+export default function GuestProfile({navigation}){
     const role = "Guest";
     const [authorisedUserDetails, setAuthorisedUserDetails] = useState();
     const [isVisiting, setIsVisiting] = useState(false);
+    const [hireDetailslist, setHireDetailslist] = useState([]);
 
     const loadUserInfo = async () => {
         const userId = getUserID();
@@ -17,6 +20,16 @@ export default function GuestProfile(){
         console.log(authorisedUserDetails)
     }
 
+    const loadHiringDetails = async () => {
+        const hireInfo = await hireFunctions.getHireInfo(authorisedUserDetails.uid);
+        setHireDetailslist(hireInfo.data);
+        console.log(hireDetails)
+    }
+
+    useEffect(() => {
+        loadHiringDetails();
+    }, []);
+
     useEffect(() => {
         loadUserInfo();
     }, [])
@@ -24,14 +37,28 @@ export default function GuestProfile(){
     if(!authorisedUserDetails) {
         return(
             <View>
-                <Text>Create your own profile</Text>
+                <Text>Create your profile</Text>
+                <TouchableOpacity>
+                    <Text>Login or Signup</Text>
+                </TouchableOpacity>
             </View>
         )
     }
 
+    const onSignOut = () => {
+        try {
+            auth()
+            .signOut()
+            .then(() => console.log('User signed out!'));
+            navigation.navigate('WelcomeScreen');
+        } catch(error) {
+            console.log(error);
+        }  
+    }
+
     return (
-        <ScrollView>
-         <View style={{flex: 1, backgroundColor: 'white'}}>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
+         <ScrollView>
          <ImageBackground 
              
              source={require('../Images/upperimage.jpg')}
@@ -49,47 +76,35 @@ export default function GuestProfile(){
                  
                  elevation: 5,}}>
                      <Image source={require('../Images/Profile.jpg')}
-                     style={Styles.profileimg}></Image>
+                        style={Styles.profileimg}></Image>
                          <View>
-                             <Text style={{color: 'black', alignSelf: 'center', fontWeight: 'bold', marginTop: 10, fontSize: 17}}> Maliha Zahan Chowdhury</Text>
-                             <Text style={{color: '#38486e', alignSelf: 'center', fontSize: 13}}> u1604046@student.cuet.ac.bd</Text>
-                             <Text style={{color: 'black', alignSelf: 'center', fontSize: 13}}> Address: Sufia Kamal Hall</Text>
-                             <Text style={{color: 'black', alignSelf: 'center',fontSize: 13}}> Contact : 01794734875</Text>
+                             <Text style={{color: 'black', alignSelf: 'center', fontWeight: 'bold', marginTop: 10, fontSize: 17}}>{authorisedUserDetails.fullName}</Text>
+                             <Text style={{color: '#38486e', alignSelf: 'center', fontSize: 13}}>{authorisedUserDetails.email}</Text>
+                             <Text style={{color: 'black', alignSelf: 'center', fontSize: 13}}>{authorisedUserDetails.location}</Text>
+                             <Text style={{color: 'black', alignSelf: 'center',fontSize: 13}}>{authorisedUserDetails.contact}</Text>
                          
                              </View>
-                             
-                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', marginTop: 10}}>
-     
-                                     <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>4.5{"\n"}Rating</Text>
-                                     <Text style={{fontWeight:'bold', fontSize: 15, textAlign: 'center', color: 'black'}}>10{"\n"}Total Photos</Text>
-                          
-                             </View>   
                      </View>
-                
-                     </View>
+
+                    <View style={{paddingHorizontal: normalize(20), marginTop: 20}}>
+                        <TouchableOpacity style={Styles.buttondesign} onPress={() => navigation.navigate('HiringLists', {
+                            hireDetailslist: hireDetailslist,
+                            authorisedUserDetails: authorisedUserDetails,
+                        })}>
+                            <Text style={{color: 'white', fontSize: normalize(15)}}>Check hiring details</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={Styles.buttondesign} onPress={onSignOut}>
+                            <Text style={{color: 'white', fontSize: normalize(15)}}>logout</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                      
                      
-         </View>
-        </ScrollView>
+         </ScrollView>
+        </View>
              
      )
 }
-
-
-
-const images = [
-    {id : 1, img:require('../Images/bg1.jpg')},
-    {id : 2, img:require('../Images/bg2.jpg')},
-    {id : 3, img:require('../Images/bg3.jpg')},
-    {id : 4, img:require('../Images/bg1.jpg')},
-    {id : 5, img:require('../Images/bg1.jpg')},
-    {id : 6, img:require('../Images/bg1.jpg')},
-    {id : 7, img:require('../Images/bg2.jpg')},
-    {id : 8, img:require('../Images/bg3.jpg')},
-    {id : 9, img:require('../Images/bg1.jpg')},
-    {id : 10, img:require('../Images/bg1.jpg')}
-  ];
-
   
 const Styles = StyleSheet.create({
   
@@ -108,7 +123,14 @@ const Styles = StyleSheet.create({
         borderWidth: 4,
         borderColor: 'white',
     },
-  
+    buttondesign:{
+        width: '100%',
+        alignItems: "center",
+        backgroundColor: '#38486e',
+        padding: normalize(10),
+        borderRadius: 10,
+        marginTop: normalize(10),
+    },
  
   
 })

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  FlatList,  View, Text, ImageBackground, StyleSheet, Dimensions,  ScrollView, Image,} from 'react-native'
+import {  FlatList,  View, Text, ImageBackground, StyleSheet, Dimensions,  ScrollView, Image, TouchableOpacity,} from 'react-native'
 import normalize from '../../constants/normalize';
 import ProfileButtons from './ProfileButtons';
 import GuestProfile from './GuestProfile';
@@ -55,8 +55,11 @@ export default function Profile({navigation, route}) {
 
     if(!authorisedUserDetails) {
         return(
-            <View>
-                <Text>Create your own profile</Text>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{color: '#38486e', fontSize: normalize(20)}}>Create your own profile</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text>logIn or SignUp</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -108,7 +111,7 @@ export default function Profile({navigation, route}) {
         )
     } else {
         return(
-            <GuestProfile />
+            <GuestProfile navigation={navigation} />
         )
     }
 }

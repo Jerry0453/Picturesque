@@ -134,10 +134,11 @@ const Styles = StyleSheet.create({
     },
     loginContainer: {
         height: '70%',
+        
         borderTopLeftRadius: 10, 
         borderTopRightRadius: 10,
         backgroundColor:'white', 
-        paddingHorizontal:normalize(20), 
+        padding:normalize(20), 
         marginTop: normalize(30),
         shadowColor: "#000",
         shadowOffset: {

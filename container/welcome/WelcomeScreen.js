@@ -13,7 +13,7 @@ export default function WelcomeScreen({navigation}) {
                     <Text style={{color:'#fff', fontSize: normalize(15)}}>Guest</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={Styles.buttondesign} onPress={() => navigation.navigate('Login')}>
-                    <Text style={{color:'#fff', fontSize: normalize(15)}}>Photographer</Text>
+                    <Text style={{color:'#fff', fontSize: normalize(15)}}>Photographer or Hirer</Text>
                 </TouchableOpacity>
             </View>
         

@@ -7,7 +7,6 @@ import MultiSelect from 'react-native-multiple-select';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth'
 
 export default function UpdateProfile({navigation, route}) {
     const { authorisedUserDetails } = route.params;
@@ -29,18 +28,6 @@ export default function UpdateProfile({navigation, route}) {
     useEffect(() => {
         loadCategories();
     }, [])
-
-    const onSignOut = () => {
-        try {
-            auth()
-            .signOut()
-            .then(() => console.log('User signed out!'));
-            navigation.navigate('WelcomeScreen');
-        } catch(error) {
-            console.log(error);
-        }  
-    }
-
 
     const submitChanges = async () => {
         console.log(selectedItem.length)
@@ -241,13 +228,10 @@ export default function UpdateProfile({navigation, route}) {
                                 placeholder='*************' />
                         </View>
 
-                        <TouchableOpacity onPress={submitChanges}>
-                        <Text style={Styles.passchange}>Submit changes</Text>
+                        <TouchableOpacity style={Styles.logoutdesign} onPress={submitChanges}>
+                        <Text style={{color: 'white', fontSize: normalize(15), textAlign: 'center',}}>Submit changes</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={onSignOut}>
-                        <Text style={Styles.passchange}>Logout</Text>
-                        </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -283,13 +267,13 @@ const Styles=StyleSheet.create({
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
     },
-    passchange:{
+    logoutdesign:{
         marginTop: 20,
         color: 'white',
         padding: 10,
         backgroundColor: '#38486e',
         borderRadius: 10,
-        textAlign: 'center',
+        
 
     }
 })

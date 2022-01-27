@@ -2,9 +2,20 @@ import React from 'react';
 import { View, Text, ImageBackground, StyleSheet, Dimensions,  ScrollView, Image, TouchableOpacity,} from 'react-native'
 import normalize from '../../constants/normalize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import auth from '@react-native-firebase/auth'
 
 export default function Settings({navigation, route}) {
     const { authorisedUserDetails } = route.params;
+    const onSignOut = () => {
+        try {
+            auth()
+            .signOut()
+            .then(() => console.log('User signed out!'));
+            navigation.navigate('WelcomeScreen');
+        } catch(error) {
+            console.log(error);
+        }  
+    }
     return (
   
         <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -33,20 +44,23 @@ export default function Settings({navigation, route}) {
                              authorisedUserDetails: authorisedUserDetails,
                          })}>
                          <Text style={{color:'black', fontSize: 16}}>Update Profile</Text>
-                         <AntDesign name="right" size={20} color="#38486e" style={{marginLeft: 165}}/>
+                         <AntDesign name="right" size={20} color="#38486e" />
                          </TouchableOpacity>
 
                          <TouchableOpacity style={Styles.settingsmenu} onPress={() => navigation.navigate('PrivacyPolicy')}>
                          <Text style={{color:'black', fontSize: 16}}>Privacy Policy</Text>
-                         <AntDesign name="right" size={20} color="#38486e" style={{marginLeft: 165}}/>
+                         <AntDesign name="right" size={20} color="#38486e" />
                          </TouchableOpacity>
 
                          <TouchableOpacity  style={Styles.settingsmenu} onPress={() => navigation.navigate('About')}>
                          <Text style={{color:'black', fontSize: 16}}>About</Text>
-                         <AntDesign name="right" size={20} color="#38486e" style={{marginLeft: 220}}/>
+                         <AntDesign name="right" size={20} color="#38486e" />
                          </TouchableOpacity>
-                       
 
+                         <TouchableOpacity  style={Styles.settingsmenu} onPress={onSignOut}>
+                         <Text style={{color:'black', fontSize: 16}}>Log out</Text>
+                         
+                         </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -85,6 +99,7 @@ const Styles = StyleSheet.create({
     settingsmenu: {
         flexDirection:'row',
         margin: 10,
+        justifyContent: 'space-between'
     }
   
 
